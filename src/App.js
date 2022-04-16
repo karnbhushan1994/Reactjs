@@ -1,28 +1,45 @@
-import React, {useState} from "react";
+import React , {Fragment}  from "react";
 
-const GrandChild  = props => {
+import  Provider  from "./Provider";
+
+import Context from "./Context";
+
+const Agents = () => {
+   return <AgentOne />
+}
+
+const AgentOne = ()  => {
+  return <AgentTwo />
+} 
+
+const AgentTwo = ()  => {
+  return <AgentBond />
+}
+
+const AgentBond = ()  => {
   return (
-       <div>
-         <Child brand = {props.brand} />
-       </div>
-  );
-};
-const Child = props => {
-   return (
-      <div>
-          <h2>child: {props.brand} </h2>
-      </div>
-   );
-};
-const  App = () => {
-    // const [brand , setBrand] = useState("Amazon");
-     const [brandname] = useState("Amazon");
-     return (
-       <div>
-         <h1>Hello</h1>
-         <GrandChild  brand ={brandname}/>
-       </div>
-     );
-};
+     <Context.Consumer>
+       {
+         (context) =>  (
+           <Fragment>
+             <h3>Agent Information</h3>
+             <p>Mission Name : {context.data.maname}</p>
+           </Fragment>
+         )
+       }
+     </Context.Consumer>
+  )
+} 
+
+const App = () =>{
+  return(
+    <div>
+       <h1>Context</h1>
+       <Provider>
+          <Agents />
+       </Provider>
+    </div>
+  )
+}
 
 export default App;
